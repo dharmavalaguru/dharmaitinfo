@@ -16,25 +16,63 @@ $(document).ready(function(){
  });
 	
 
+//Filter
 
-
-$(".filter-button").click(function(){
-        var value = $(this).attr('data-filter');
+// $(".filter-button").click(function(){
+//         var value = $(this).attr('data-filter');
         
-        if(value == "all")
-        {
-            //$('.filter').removeClass('hidden');
-            $('.filter').show('1000');
-        }
-        else
-        {
-//            $('.filter[filter-item="'+value+'"]').removeClass('hidden');
-//            $(".filter").not('.filter[filter-item="'+value+'"]').addClass('hidden');
-            $(".filter").not('.'+value).hide('3000');
-            $('.filter').filter('.'+value).show('3000');
+//         if(value == "all")
+//         {
+//             //$('.filter').removeClass('hidden');
+//             $('.filter').show('1000');
+//         }
+//         else
+//         {
+// //            $('.filter[filter-item="'+value+'"]').removeClass('hidden');
+// //            $(".filter").not('.filter[filter-item="'+value+'"]').addClass('hidden');
+//             $(".filter").not('.'+value).hide('3000');
+//             $('.filter').filter('.'+value).show('3000');
             
-        }
+//         }
+//     });
+
+
+$('#toggle').click(function() {
+   $(this).toggleClass('active');
+   $('#overlay').toggleClass('open');
+  });
+
+$qvalue=0;
+   $('.quickcontact').click(function(event) {
+   	
+    if($qvalue==0)
+    {
+    	$(".quickcontact-form").addClass('open', 1000);
+      	$(".quickcontact").addClass('open1', 1000);       
+       	$qvalue=1;
+        event.stopPropagation();
+    }
+    else
+    {
+       $(".quickcontact-form").removeClass('open', 1000);
+       $(".quickcontact").removeClass('open1', 1000);
+       $qvalue=0;
+        event.stopPropagation();
+    }
+       
     });
+    $('.quickcontact-form').click(function(event) {
+        $(".quickcontact-form").addClass('open', 1000);
+        event.stopPropagation();
+    });
+    // $(window).click(function() {
+    //   if ( $(".quickcontact-form").hasClass( "open" ) && $(".quickcontact").hasClass( "open1" ))
+    //   {
+    //   $(".quickcontact-form").removeClass('open', 1000);
+    //   $(".quickcontact").removeClass('open1', 1000);
+    //   }
+        
+    // });
 
 
 
@@ -42,19 +80,93 @@ $(".filter-button").click(function(){
 
 });
 
+function Valid_quickcontact1() {
+    var quickcontactname = document.getElementById('contactname');
+    var quickcontactemail = document.getElementById('contactemail');
+    var quickcontactphone = document.getElementById('contactphone');
+    var quickcontactmessage = document.getElementById('contactcomment');    
+    if (qnEmpty(quickcontactname, "Kindly enter your name")) {
+        if (isAlphabetquick(quickcontactname, "Enter only letters for your Name")) {
+            if (qnEmpty(quickcontactemail, "Kindly enter your email address")) {
+                if (emailValidatorquick(quickcontactemail, "Enter a valid email address")) {
+                    if (qnEmpty(quickcontactphone, "Kindly enter your contact number")) {
+                        if (isNumericquick(quickcontactphone, "Kindly enter valid contact number")) {
+                            if (lengthRestrictionquick(quickcontactphone, 8, 10)) {
+                                if (qnEmpty(quickcontactmessage, "Kindly enter your message")) {
+                                    if (isurlquickcontact(quickcontactmessage, "Remove the URL from the text")) {
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}
 
+function isurlquickcontact(elem, helperMsg) {
+    var urlExpression = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
+    if (elem.value.match(urlExpression)) {
+        document.getElementById("quickcontacterror1").innerHTML = helperMsg;
+        elem.focus();
+        return false;
+    } else {
+        return true;
+    }
+}
 
-// First Name: Dharmalingam
-// Last Name: Valaguru
-// Father Name: S Valaguru
-// PAN: BWTPD2916E
-// Passport # : L7844857
-// Aadhaar # : 705655251716
-// Date of Birth: 11-04-1990
-// Joining Date: 28-06-2017
-// Current CTC (Fixed): 340000/- PA
-// Variable pay: Nil
-// Expected CTC: 650000/-PA
-// Address for Communication (Complete Address):NO 14, Jayanthi Nilayalam , 7th Main, Roopena Agrahara, NGR Layout, Bangalore - 560068
-// Previous employer/Current employer offer letter: PFA
-// Salary slip - past 3 months : PFA
+function qnEmpty(elem, helperMsg) {
+    if (elem.value.length == 0) {
+        document.getElementById("quickcontacterror1").innerHTML = helperMsg;
+        elem.focus();
+        return false;
+    }
+    return true;
+}
+
+function isNumericquick(elem, helperMsg) {
+    var numericExpression = /^[0-9]+$/;
+    if (elem.value.match(numericExpression)) {
+        return true;
+    } else {
+        document.getElementById("quickcontacterror1").innerHTML = helperMsg;
+        elem.focus();
+        return false;
+    }
+}
+
+function isAlphabetquick(elem, helperMsg) {
+    var alphaExp = /^[a-zA-Z\s]+$/;
+    if (elem.value.match(alphaExp)) {
+        return true;
+    } else {
+        document.getElementById("quickcontacterror1").innerHTML = helperMsg;
+        elem.focus();
+        return false;
+    }
+}
+
+function lengthRestrictionquick(elem, min, max) {
+    var uInput = elem.value;
+    if (uInput.length >= min && uInput.length <= max) {
+        return true;
+    } else {
+        document.getElementById("quickcontacterror1").innerHTML = "Please enter between " + min + " and " + max + " characters";
+        elem.focus();
+        return false;
+    }
+}
+
+function emailValidatorquick(elem, helperMsg) {
+    var emailExp = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
+    if (elem.value.match(emailExp)) {
+        return true;
+    } else {
+        document.getElementById("quickcontacterror1").innerHTML = helperMsg;
+        elem.focus();
+        return false;
+    }
+}
