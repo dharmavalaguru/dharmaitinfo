@@ -29,7 +29,7 @@ header .pro-head .call a:hover{font-style: italic;background: #fff;color: #000;t
 
 .dharma .first-part .first-in ul.slider {}
 .dharma .first-part .first-in ul.slider li{}
-.dharma .first-part .first-in ul.slider li img{position: relative;}
+.dharma .first-part .first-in ul.slider li img{position: relative;width: 100%;}
 .dharma .first-part .first-in ul.slider li .caption{top: 25%;display: inline-block;width: 50%;position: absolute;left: 25%;background: rgba(0,0,0,0.5);color: #fff;padding: 30px 30px 35px 30px;}
 .dharma .first-part .first-in ul.slider li .caption h2{color: #fff;font-size: 3.5em;}
 .dharma .first-part .first-in ul.slider li .caption  a{color: #fff;font-size: 15px;}
